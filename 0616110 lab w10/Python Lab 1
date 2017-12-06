@@ -1,0 +1,11 @@
+str = input("Enter a string: ")
+
+print(str)
+
+colon_space = str.split(":")
+#we are splitting the string after the colon character
+print(colon_space)
+
+final = float(colon_space[1])
+#we are then printing the result
+print(final)

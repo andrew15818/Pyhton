@@ -1,0 +1,28 @@
+import itertools
+
+def combine_lists(Names, Ages):
+    final = dict(zip(Names, Ages))
+    return final
+#This function adds the two lists together
+def people(age, combined):
+    #this function loops through the keys and values and prints the ones that are equal to the age entered by the user
+    #it will print the keys of all the values that are equal to the age
+    for key, value in combined.items():
+        if age == value:
+            print(key)
+
+
+
+
+Names = ['Alice', 'Bob', 'Cathy', 'Dan', 'Ed', 'Frank','Gary', 'Helen', 'Irene', 'Jack', 'Kelly','Larry']
+
+Ages = [20,21,18,18,19,20,20,19,19,19,22,19]
+combined = combine_lists(Names, Ages)
+
+age = int(input('Enter an age: '))
+
+
+
+people(age, combined)
+
+#print(combined)
