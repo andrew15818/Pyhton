@@ -20,10 +20,12 @@ while True:
     ball_two = ball_two.split(',')
     ball_two = tuple(ball_two)
     if 'Exit' in ball_two:
-        print('byebye')
+        print('Thank you. byebye')
         break
+
     x1, y1, r1 = ball_one
     x2, y2, r2 = ball_two
+
     '''the values in the tuple are strings, so we convert every value into 
     an integer'''
     x1 = int(x1)
@@ -32,6 +34,8 @@ while True:
     y2 = int(y2)
     r1 = int(r1)
     r2 = int(r2)
+
+
     sum_radius = r1 + r2
     '''To get the distance between the centers, we use the distance formula,
     and compare it to the sum of the radii'''
