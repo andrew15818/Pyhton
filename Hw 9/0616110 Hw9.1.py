@@ -11,17 +11,22 @@ for line in file:
         '''For each line, if there is \in\ inside the string, then it will go 
         to the first for loop, else to the second one'''
         if "in" in line:
+
             line = line.split('in')
             #print('Line with in : ', line)
             revision = line[0].split(":", 2)
+
             '''For revision and place, we are trying to get those strings by themselves,
             so we have to split the string multiple times'''
+
             place = line[1].split("/")
             final_rev = revision[2].replace("-", "")
             #here we just replace the final - so it looks the same as the other ouptuts
+
             print(final_rev, place[0])
         #we use a very similar process if the string does not have "in"
-        elif "in" not in line:
+
+        else:
             line = line.split('-')
             revision = line[0].split(":")
             place = line[1].split('/')

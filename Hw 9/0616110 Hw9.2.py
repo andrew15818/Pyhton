@@ -23,8 +23,12 @@ while True:
         print('Thank you. byebye')
         break
 
-    x1, y1, r1 = ball_one
-    x2, y2, r2 = ball_two
+    try:
+        x1, y1, r1 = ball_one
+        x2, y2, r2 = ball_two
+    except:
+        print('Bad Input')
+        exit()
 
     '''the values in the tuple are strings, so we convert every value into 
     an integer'''

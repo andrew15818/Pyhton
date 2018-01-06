@@ -1,21 +1,4 @@
-import itertools
-
-def combine_lists(Names, Ages):
-    gente = dict(zip(Names, Ages))
-    return gente
-def people(Age, gente):
-    for keys, values in gente.items():
-        if age == values:
-            print(keys)
-Names = ['Alice', 'Bob', 'Cathy', 'Dan', 'Ed', 'Frank', 'Gary', 'Helen', 'Irene',
-         'Jack','Kelly', 'Larry']
-Ages = [20,21,18,18,19,20,20,19,19,19,22,19]
-
-gente = dict(combine_lists(Names, Ages))
-age = int(input('Enter an age boi'))
-
-people(age, gente)
-
+import facebook
 
 
 

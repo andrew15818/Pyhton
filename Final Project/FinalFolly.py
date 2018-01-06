@@ -46,15 +46,15 @@ print('track name: ', track)'''
 
 client_id = '29ed730a97614d47855056f3f71ff371'
 #we need this key for authorization, plus another private key which I saved in the secret.txt file
-user = 'andrew15818'
+
+
+
 #that's my name :)
-redirect_uri = 'http://localhost/callback'
+
 
 #Our secret id number is in the other file, this loop will make secret_id that number
 #this client id is the one givent to my app when registering on Spotify
-handle = open('secret.txt', 'r')
-secret_id = str()
-for line in handle:
-    secret_id = secret_id + line
-print(secret_id)
-token = util.prompt_for_user_token(user, client_id, secret_id, redirect_uri)
+
+token = util.prompt_for_user_token(username = 'andrew15818',  client_id = '29ed730a97614d47855056f3f71ff371', client_secret = 'f1656e76e32e4d3b922f23c1ee5416a4', redirect_uri = 'http://localhost/')
+if token:
+    print ('hola')
