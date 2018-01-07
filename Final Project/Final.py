@@ -62,8 +62,9 @@ if token:
 
 def GetArtistId(artist):
     artist_endpoint = 'https://api.spotify.com/v1/search'
-    criteria ="q=":+artist"type="+'artist'
-    response = requests.get(artist_endpoint+criteria, header = token)
+    criteria = "?q="+artist+"&type=artist"
+    header = {'Authorization': 'Bearer'+token}
+    response = requests.get(artist_endpoint,criteria, header)
     try:
         print(response)
     except Exception as e:
