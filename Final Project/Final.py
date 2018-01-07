@@ -65,7 +65,7 @@ def GetArtistId(artist):
     encode_info = (("q",artist),("type","artist"))
     encode_info = urllib.parse.urlencode(encode_info)
     criteria = "?q="+artist+"&type=artist"
-    header = {'Authorization': 'Bearer'+token}
+    header = {'Authorization:': 'Bearer '+token}
     response = requests.get(artist_endpoint+encode_info, header)
     try:
         print(response)
