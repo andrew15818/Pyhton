@@ -61,12 +61,13 @@ if token:
     print('successfully connected to Spotify.')
 
 def GetArtistId(artist):
-    artist_endpoint = 'https://api.spotify.com/v1/search'
+    artist_endpoint = 'https://api.spotify.com/v1/search?'
     encode_info = (("q",artist),("type","artist"))
     encode_info = urllib.parse.urlencode(encode_info)
-    criteria = "?q="+artist+"&type=artist"
-    header = {'Authorization:': 'Bearer '+token}
-    response = requests.get(artist_endpoint+encode_info, header)
+    legit_url = artist_endpoint + encode_info
+    print(legit_url) 
+    header = {'Authorization': 'Bearer '+token}
+    response = requests.get(legit_url, header)
     try:
         print(response)
     except Exception as e:
