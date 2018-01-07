@@ -1,7 +1,7 @@
 import urllib.request,urllib.error, urllib.parse, urllib
 from bs4 import BeautifulSoup
 import spotipy
-import sys
+import sys, pprint
 import spotipy.util as util
 import json
 import requests
@@ -26,12 +26,14 @@ try:
 except:
     p
 #we want to just get the string with artist and song name
-
-string = str(title.find(text = True))
-string = string.split('-')
-    
+try:
+   string = str(title.find(text = True))
+   string = string.split('-')
 #These strings have 4 blank spaces at the beginning, so we just replace them
-print('Could not find the information from the given url :(')
+except:
+    print('Could not find the information from the given url :(')
+
+
 try:
     artist = string[0].replace('\n', '').replace(' ', '', 4)
     track = string[1].replace(" ", '', 1)
@@ -60,18 +62,45 @@ token = util.prompt_for_user_token(username = 'andrew15818', scope='user-read-pr
 if token:
     print('successfully connected to Spotify.')
 
-def GetArtistId(artist):
+'''We first need to find the artists unique id url, and we do that by sending another request to spotify'''
+
+def get_artist_id(artist):
     artist_endpoint = 'https://api.spotify.com/v1/search?'
+    
+    #encoding the information so it is sent in the correct format during the request    
     encode_info = (("q",artist),("type","artist"))
     encode_info = urllib.parse.urlencode(encode_info)
-    legit_url = artist_endpoint + encode_info
-    print(legit_url) 
+    
+    #just getting the request format in order
+    request_url = artist_endpoint + encode_info
     header = {'Authorization': 'Bearer '+token}
-    response = requests.get(legit_url, header)
+    response = requests.get(request_url, headers = header)
+    
     try:
-        print(response)
-    except Exception as e:
-        print (e)
+        '''We parse the json to arrive at the id of our aritst'''
+        response = response.json()
+        artist_url = ( response['artists']['items'][0]['external_urls']['spotify'] )
+        artist_url = artist_url.split('/')[4]
+        return (artist_url)
+    except json.JSONDecodeError:
+        print ('Sorry, there was a mistake in retrieving data from Spotify')
         
-
-GetArtistId(artist)
+artist_id = get_artist_id(artist)
+print(artist_id)
+'''Now that we have the artist id, we can look for similar artists'''
+def get_similar_artists(artist_id):
+    #the process is similar as getting the id
+    endpoint_uri = 'https://api.spotify.com/v1/artists/{id}/related-artists'
+    header = {'Authorization': 'Bearer '+token}
+    
+    final_url = endpoint_uri.format( id = artist_id)
+    
+    similar_artists = requests.get(final_url, headers = header)
+    #pprint.pprint(similar_artists.json())
+    
+    similar_artists = similar_artists.json()
+    
+    print(similar_artists['artists'][0]['name'])
+    
+    
+get_similar_artists(artist_id)
