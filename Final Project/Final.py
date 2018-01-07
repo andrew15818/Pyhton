@@ -24,14 +24,14 @@ soup = BeautifulSoup(handle, 'html.parser')
 try:
     title = soup.find(class_= 'watch-title')
 except:
-    print('Could not find the information from the given url :(')
-    
+    p
 #we want to just get the string with artist and song name
 
 string = str(title.find(text = True))
 string = string.split('-')
     
 #These strings have 4 blank spaces at the beginning, so we just replace them
+print('Could not find the information from the given url :(')
 try:
     artist = string[0].replace('\n', '').replace(' ', '', 4)
     track = string[1].replace(" ", '', 1)
@@ -62,10 +62,11 @@ if token:
 
 def GetArtistId(artist):
     artist_endpoint = 'https://api.spotify.com/v1/search'
-    artist = urllib.urlencode(artist)
+    encode_info = (("q",artist),("type","artist"))
+    encode_info = urllib.parse.urlencode(encode_info)
     criteria = "?q="+artist+"&type=artist"
     header = {'Authorization': 'Bearer'+token}
-    response = requests.get(artist_endpoint+criteria, header)
+    response = requests.get(artist_endpoint+encode_info, header)
     try:
         print(response)
     except Exception as e:
