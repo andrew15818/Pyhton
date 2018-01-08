@@ -24,7 +24,7 @@ soup = BeautifulSoup(handle, 'html.parser')
 try:
     title = soup.find(class_= 'watch-title')
 except:
-    p
+    print("could not open the url")
 #we want to just get the string with artist and song name
 try:
    string = str(title.find(text = True))
@@ -49,14 +49,10 @@ print('We detected the track is:' , track)
 
 '''===Now that we have the artist and track title, we can use that information to connect to the Spotify API==='''
 
-#client_id = '29ed730a97614d47855056f3f71ff371'
-
-
-
 #Our secret id number is in the other file, this loop will make secret_id that number
 #this client id is the one givent to my app when registering on Spotify
 
-#this mehtod will automatically renew tokens if it's expired
+#this mehtod will automatically renew token if it's expired
 token = util.prompt_for_user_token(username = 'andrew15818', scope='user-read-private' , client_id = '29ed730a97614d47855056f3f71ff371', client_secret = 'f1656e76e32e4d3b922f23c1ee5416a4', redirect_uri = 'http://localhost:8888/callback')
 
 if token:
@@ -86,7 +82,9 @@ def get_artist_id(artist):
         print ('Sorry, there was a mistake in retrieving data from Spotify')
         
 artist_id = get_artist_id(artist)
-print(artist_id)
+
+#print(artist_id)
+
 '''Now that we have the artist id, we can look for similar artists'''
 def get_similar_artists(artist_id):
     #the process is similar as getting the id
@@ -96,11 +94,11 @@ def get_similar_artists(artist_id):
     final_url = endpoint_uri.format( id = artist_id)
     
     similar_artists = requests.get(final_url, headers = header)
+    
     #pprint.pprint(similar_artists.json())
-    
     similar_artists = similar_artists.json()
-    
-    print(similar_artists['artists'][0]['name'])
+    for items in similar_artists:
+        print('You might also be interested in: ',similar_artists['artists'][0]['name'][0])
     
     
 get_similar_artists(artist_id)
